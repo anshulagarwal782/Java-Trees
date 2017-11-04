@@ -14,25 +14,14 @@ class BinaryTree{
 		
 	}
 	public void BinaryTree(String data, String first,BinaryTree tree) {
-	
-	
 		BinaryTree node = search(data,tree);
 		if(node == null) {
 			this.data = data;
 			this.left = new BinaryTree(first);
-			/*this.left.data = first;*/
-			/*BinaryTree node1 = search(this.data,this.right);
-			if(node1 == null) {
-				this.left.data = this.data;
-			}
-			else {
-				this.left.data = this.data;
-			}*/
 		}
 		else {
 			node.left = new BinaryTree(first);
 		}
-		
 	}
 	public void BinaryTree(String data, String first, String second,BinaryTree tree) {
 		BinaryTree node = search(data,tree);
@@ -40,19 +29,11 @@ class BinaryTree{
 			this.data = data;
 			this.left = new BinaryTree(first);
 			this.right = new BinaryTree(second);
-			/*BinaryTree node1 = search(this.data,this.right);
-			if(node1 == null) {
-				this.left.data = this.data;
-			}
-			else {
-				this.left.data = this.data;
-			}*/
 		}
 		else {
 			node.left = new BinaryTree(first);
 			node.right = new BinaryTree(second);
 		}
-		
 	}
 	public BinaryTree search(String name, BinaryTree node){
 	    if(node != null){
@@ -77,14 +58,13 @@ class BinaryTree{
 		System.out.print(" "+this.data);
 		if(this.right!=null) {
 			this.right.inorder();
-		}
-		
+		}	
 	}
-	
 }
 class tokenize{
 	private String str;
 	private String first;
+	private String second;
 	private int num;
 	public tokenize(String str) {
 		super();
@@ -92,7 +72,6 @@ class tokenize{
 	}
 	public void tokeniz(BinaryTree tree) {
 		StringTokenizer stringTokenizer = new StringTokenizer(str);
-		while(stringTokenizer.hasMoreTokens()) {
 			first = stringTokenizer.nextToken();
 			num = Integer.parseInt(stringTokenizer.nextToken());
 			if(num == 1) {
@@ -100,6 +79,21 @@ class tokenize{
 			}
 			else {
 				tree.BinaryTree(first,stringTokenizer.nextToken(),stringTokenizer.nextToken(),tree);
+			}
+		
+	}
+	public void check_siblings(BinaryTree tree) {
+		StringTokenizer stringTokenizer = new StringTokenizer(str);
+		first = stringTokenizer.nextToken();
+		second = stringTokenizer.nextToken();
+		BinaryTree t = tree.search(second, tree);
+		if(t!=null) {
+			BinaryTree t1 = tree.search(first, t);
+			if(t1!=null) {
+				System.out.println("yes");
+			}
+			else {
+				System.out.println("no");
 			}
 		}
 	}
@@ -117,7 +111,14 @@ public class AppPerfect_example {
 			token1.tokeniz(tree);
 			test--;
 		} 
-		tree.inorder();
+		int check = 2;
+		while(check!=0) {
+			s = scanner.nextLine();
+			tokenize t = new tokenize(s);
+			t.check_siblings(tree);
+			check--;
+			
+		}
 		
 	}
 }
